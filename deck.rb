@@ -7,7 +7,7 @@ class Deck
     
     suits.each do |suit|
       (2..10).each do |value|
-        name = "#{value}"
+        name = value.to_s
         @cards << Card.new(suit, value, name)
       end
       
