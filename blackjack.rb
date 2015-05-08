@@ -68,7 +68,7 @@ class Blackjack
         @dealer_value_total = 0
         @player_done = true
         @dealer_done = true
-      elsif @player_value_total < 21
+      elsif @player_value_total <= 21
         puts "Would you like to hit or stay?"
         answer = gets.chomp
         if answer == "hit"
@@ -85,7 +85,7 @@ class Blackjack
         @player_done = true
         @player_value_total = 0
       else
-        puts "You either have a 21 or have broken the program. Cthulu would like to congratulate you."
+        puts "You broke the program. Cthulu would like to congratulate you."
       end
     end
 
