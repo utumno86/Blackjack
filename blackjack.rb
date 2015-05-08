@@ -33,7 +33,7 @@ deal(2)
 deal(1)
 deal(2)
 
-unless @player_done && @dealer_done == true
+until @player_done && @dealer_done == true do
   
   puts "Your hand:"
   @player_hand.each do |x|
@@ -64,10 +64,25 @@ unless @player_done && @dealer_done == true
     @dealer_value_total = 0
     @player_done = true
     @dealer_done = true
+  elsif @player_value_total < 21
+    puts "Would you like to hit or stay?"
+    answer = gets.chomp
+    if answer == "hit"
+      puts "You draw a card"
+      deal(1)
+    elsif answer == "stay"
+      puts "You stay"
+      @player_done = true
+    else
+      puts "Sorry, you have entered an invalid command. Keep playing while I summon Cthulu on you."
+    end
+  elsif @player_value_total > 21
+    puts "You went bust"
+    @player_done = true
+    @player_value_total = 0
+  else
+    puts "You either have a 21 or have broken the program. Cthulu would like to congratulate you."
   end
-
-  @player_done = true
-  @dealer_done = true
 end
 
 puts "Your hand:"
