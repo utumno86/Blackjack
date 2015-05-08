@@ -38,18 +38,35 @@ unless @player_done && @dealer_done == true
   puts "Your hand:"
   @player_hand.each do |x|
     puts x.print_name
-    puts @player_value_total
-  end
-
-  puts "Dealer hand:"
-  @dealer_hand.each do |x|
-    puts x.print_name
-    puts @dealer_value_total
   end
 
   @player_done = true
   @dealer_done = true
 end
+
+puts "Your hand:"
+  @player_hand.each do |x|
+    puts x.print_name
+  end
+
+puts "Dealer hand:"
+  @dealer_hand.each do |x|
+    puts x.print_name
+  end
+
+if @dealer_value_total > @player_value_total
+  puts "Tough luck! The Dealer one this one."
+elsif @player_value_total > @dealer_value_total
+  puts "You won this hand. Congratulations!"
+elsif @dealer_value_total == @player_value_total
+  puts "Wow, there's a tie. Didn't see that one coming."
+else
+  puts "Great, you broke the game again. Cthulu wins."
+end
+
+puts "Thank you for playing my Blackjack game. If you would like to play again, just type ruby blackjack.rb into the console!"
+    
+    
 
 
 

@@ -11,7 +11,7 @@ class Card
   end
 
   def print_name
-    puts "#{@name} of #{@suit}"
+    puts "The #{@name} of #{@suit}"
   end
 
   def value
