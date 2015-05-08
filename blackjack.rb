@@ -42,17 +42,26 @@ unless @player_done && @dealer_done == true
 
   puts "You can see one of the dealer's cards:"
   @dealer_hand[0].print_name
-
-  if @dealer_hand[0].value + @dealer_hand[1].value == 21
-    puts "The dealer got a BLACKJACK. You SUPER lose."
-    player_value_total = 0
-    @player_done = true
-    @dealer_done = true
+  while @dealer_done != true do
+    if @dealer_hand[0].value + @dealer_hand[1].value == 21
+      puts "The dealer got a BLACKJACK. You SUPER lose."
+      @player_value_total = 0
+      @player_done = true
+      @dealer_done = true
+    elsif @dealer_value_total < 16
+      deal(2)
+    elsif @dealer_value_total > 21
+     puts "The dealer went bust"
+     @dealer_value_total = 0
+     @dealer_done = true
+    else
+      @dealer_done = true
+    end
   end
 
   if @player_hand[0].value + @player_hand[1].value == 21
     puts "BLACKJACK! You got that thing the game is named. You SUPER win."
-    dealer_value_total = 0
+    @dealer_value_total = 0
     @player_done = true
     @dealer_done = true
   end
