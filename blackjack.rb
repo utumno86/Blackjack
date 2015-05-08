@@ -37,8 +37,11 @@ unless @player_done && @dealer_done == true
   
   puts "Your hand:"
   @player_hand.each do |x|
-    puts x.print_name
+    x.print_name
   end
+
+  puts "You can see one of the dealer's cards:"
+  @dealer_hand[0].print_name
 
   @player_done = true
   @dealer_done = true
@@ -46,16 +49,16 @@ end
 
 puts "Your hand:"
   @player_hand.each do |x|
-    puts x.print_name
+    x.print_name
   end
 
 puts "Dealer hand:"
   @dealer_hand.each do |x|
-    puts x.print_name
+    x.print_name
   end
 
 if @dealer_value_total > @player_value_total
-  puts "Tough luck! The Dealer one this one."
+  puts "Tough luck! The Dealer won this one."
 elsif @player_value_total > @dealer_value_total
   puts "You won this hand. Congratulations!"
 elsif @dealer_value_total == @player_value_total
