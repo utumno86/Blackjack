@@ -8,6 +8,8 @@ require 'deck'
 @card_index = 51
 @player_hand =[]
 @dealer_hand =[]
+@player_done = false
+@dealer_done = false
 
 def deal (id)
   if id == 1
@@ -27,15 +29,31 @@ deal(2)
 deal(1)
 deal(2)
 
-puts "The Player's hand:"
-@player_hand.each do |x|
-  puts x.print_name
+unless @player_done && @dealer_done == true
+  player_value_total = 0
+  dealer_value_total = 0
+  
+  puts "Your hand:"
+  
+  @player_hand.each do |x|
+    puts x.print_name
+    player_value_total += x.value
+    puts player_value_total
+  end
+
+  @dealer_hand.each do |x|
+    puts x.print_name
+    dealer_value_total += x.value
+    puts dealer_value_total
+  end
+
+  @player_done = true
+  @dealer_done = true
 end
 
-puts "The Dealer's hand:"
-@dealer_hand.each do |x|
-  puts x.print_name
-end
+
+
+
 
 
   

@@ -13,4 +13,8 @@ class Card
   def print_name
     puts "#{@name} of #{@suit}"
   end
+
+  def value
+    @value
+  end
 end
