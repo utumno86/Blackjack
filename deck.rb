@@ -1,4 +1,5 @@
-require_relative '/Users/utumn_000/coding/Blackjack/card.rb'
+$LOAD_PATH.unshift File.dirname(__FILE__)
+require 'card'
 class Deck
   
   def initialize
@@ -16,19 +17,12 @@ class Deck
       @cards << Card.new(suit, 10, "King")
       @cards << Card.new(suit, 1, "Ace")
     end
+
   end
 
   def cards
     @cards
   end
 
-  def shuffle
-  end
 end
 
-new_deck = Deck.new
-new_deck.cards.shuffle!
-
-new_deck.cards.each do |x|
-  x.print_name
-end
