@@ -3,17 +3,23 @@ require 'card'
 require 'deck'
 
 class Blackjack
-  def initialize
-    @new_deck = Deck.new
-
-    @card_index = 51
-    @player_hand =[]
-    @dealer_hand =[]
-    @player_done = false
-    @dealer_done = false
-    @player_value_total = 0
-    @dealer_value_total = 0
+  def initialize (dealer_wins, player_wins, total_wins)
+    @dealer_wins = dealer_wins
+    @player_wins = player_wins
+    @total_wins = total_wins
   end
+
+  def dealer_wins
+    @dealer_wins
+  end
+
+def player_wins
+  @player_wins
+end
+
+def total_wins
+  @total_wins
+end
 
   def deal (id)
     if id == 1
@@ -31,6 +37,15 @@ class Blackjack
   end
   
   def hand
+    @new_deck = Deck.new
+
+    @card_index = 51
+    @player_hand =[]
+    @dealer_hand =[]
+    @player_done = false
+    @dealer_done = false
+    @player_value_total = 0
+    @dealer_value_total = 0
     @new_deck.cards.shuffle!
     deal(1)
     deal(2)
@@ -101,18 +116,47 @@ class Blackjack
 
     if @dealer_value_total > @player_value_total
       puts "Tough luck! The Dealer won this one."
+      @dealer_wins += 1
+      @total_wins += 1
     elsif @player_value_total > @dealer_value_total
       puts "You won this hand. Congratulations!"
+      @player_wins += 1
+      @total_wins += 1
     elsif @dealer_value_total == @player_value_total
-      puts "Wow, there's a tie. Didn't see that one coming."
+      puts "Wow, there's a tie. The dealer wins ties, sucks to be you."
+      @dealer_wins += 1
+      @total_wins += 1
     else
       puts "Great, you broke the game again. Cthulu wins."
     end
   end
 end
 
-blackjack = Blackjack.new
-blackjack.hand
+
+@game_over = false
+@dealer_wins = 0
+@player_wins = 0
+@total_wins = 0
+
+while @game_over == false do
+  blackjack = Blackjack.new @dealer_wins, @player_wins, @total_wins
+  blackjack.hand
+  @dealer_wins = blackjack.dealer_wins
+  @player_wins = blackjack.player_wins
+  @total_wins = blackjack.total_wins
+  puts "\n \n \n \n \n"
+  puts "You have won #{@player_wins} times and the dealer has won #{@dealer_wins} times."
+  puts "You have won #{(@player_wins / @total_wins) * 100} % of the time."
+  puts "Would you like to play again? (yes/no)"
+  answer = gets.chomp
+  if answer == "no"
+    puts "Thank you for playing"
+    @game_over = true
+  elsif answer != "yes"
+    puts "You have chosen an invalid option. Cthulu conquers the world and also I'm ending this session."
+    @game_over = true
+  end
+end
 
 
     
