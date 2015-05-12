@@ -9,6 +9,9 @@ class Card
       @is_ace = false
     end
   end
+  def ace
+    @is_ace
+  end
 
   def print_name
     puts "The #{@name} of #{@suit}"

@@ -13,12 +13,12 @@ class Blackjack
     @dealer_wins
   end
 
-def player_wins
-  @player_wins
-end
+  def player_wins
+    @player_wins
+  end
 
-def total_wins
-  @total_wins
+  def total_wins
+    @total_wins
 end
 
   def deal (id)
@@ -46,6 +46,8 @@ end
     @dealer_done = false
     @player_value_total = 0
     @dealer_value_total = 0
+    @dealer_has_ace = false
+    @player_has_ace = false
     @new_deck.cards.shuffle!
     deal(1)
     deal(2)
@@ -57,26 +59,19 @@ end
       puts "Your hand:"
       @player_hand.each do |x|
         x.print_name
+        if x.ace == true
+          @player_has_ace = true
+        end
       end
 
       puts "You can see one of the dealer's cards:"
-      @dealer_hand[0].print_name
-      while @dealer_done != true do
-        if @dealer_hand[0].value + @dealer_hand[1].value == 21
-          puts "The dealer got a BLACKJACK. You SUPER lose."
-          @player_value_total = 0
-          @player_done = true
-          @dealer_done = true
-        elsif @dealer_value_total < 16
-          deal(2)
-        elsif @dealer_value_total > 21
-          puts "The dealer went bust"
-          @dealer_value_total = 0
-          @dealer_done = true
-        else
-          @dealer_done = true
+      @dealer_hand.each do |x|
+        if x.ace == true
+          @dealer_has_ace = true
         end
       end
+
+      @dealer_hand[0].print_name
 
       if @player_hand[0].value + @player_hand[1].value == 21
         puts "BLACKJACK! You got that thing the game is named. You SUPER win."
@@ -96,11 +91,51 @@ end
           puts "Sorry, you have entered an invalid command. Keep playing while I summon Cthulu on you."
         end
       elsif @player_value_total > 21
-        puts "You went bust"
-        @player_done = true
-        @player_value_total = 0
+        if @player_has_ace
+        j = 0
+            while @player_value_total > 21 && j <= @player_hand.length do
+              if @player_hand[i].ace == true
+                  @player_value_total -= 10
+                  j += 1
+              end
+            end
+          else
+            puts "The dealer went bust"
+            @dealer_value_total = 0
+            @dealer_done = true
+          end
       else
         puts "You broke the program. Cthulu would like to congratulate you."
+      end
+
+      while @dealer_done != true do
+        
+        if @dealer_hand[0].value + @dealer_hand[1].value == 21
+          puts "The dealer got a BLACKJACK. You SUPER lose."
+          @player_value_total = 0
+          @player_done = true
+          @dealer_done = true
+        
+        elsif @dealer_value_total < 16
+          deal(2)
+        
+        elsif @dealer_value_total > 21
+          if @dealer_has_ace
+            i = 0
+            while @dealer_value_total > 21 && i <= @dealer_hand.length do
+              if @dealer_hand[i].ace == true
+                  @dealer_value_total -= 10
+                  i += 1
+              end
+            end
+          else
+            puts "The dealer went bust"
+            @dealer_value_total = 0
+            @dealer_done = true
+          end
+        else
+          @dealer_done = true
+        end
       end
     end
 
