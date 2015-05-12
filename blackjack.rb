@@ -181,7 +181,7 @@ while @game_over == false do
   @total_wins = blackjack.total_wins
   puts "\n \n \n \n \n"
   puts "You have won #{@player_wins} times and the dealer has won #{@dealer_wins} times."
-  puts "You have won #{(@player_wins / @total_wins) * 100} % of the time."
+  puts "You have won #{(@player_wins / @total_wins.to_f) * 100} % of the time."
   puts "Would you like to play again? (yes/no)"
   answer = gets.chomp
   if answer == "no"
