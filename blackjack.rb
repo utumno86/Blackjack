@@ -100,9 +100,10 @@ end
               end
             end
           else
-            puts "The dealer went bust"
-            @dealer_value_total = 0
+            puts "You went bust"
+            @player_value_total = 0
             @dealer_done = true
+            @player_done = true
           end
       else
         puts "You broke the program. Cthulu would like to congratulate you."
@@ -132,6 +133,7 @@ end
             puts "The dealer went bust"
             @dealer_value_total = 0
             @dealer_done = true
+            @player_done = true
           end
         else
           @dealer_done = true
